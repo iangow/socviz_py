@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "socviz_py"
+version = "0.0.1"
+description = "Data and helper functions for a Python/Polars companion to Data Visualization"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [{name = "Ian D. Gow"}]
+dependencies = [
+  "polars[pyarrow]",
+]
+
+[project.optional-dependencies]
+plots = ["plotnine"]
+pandas = ["pandas", "pyarrow"]
+dev = ["build", "pytest", "twine", "plotnine", "pandas", "duckdb", "requests"]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+socviz_data = ["_data/*.parquet"]
