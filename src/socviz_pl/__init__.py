@@ -11,6 +11,9 @@ __all__ = [
     "data_path",
     "load_data",
     "theme_map",
+    "theme_socviz",
+    "theme_socviz_map",
+    "theme_socviz_semi",
     "__version__",
 ]
 
@@ -19,6 +22,9 @@ _LAZY_IMPORTS = {
     "data_path": (".data", "data_path"),
     "load_data": (".data", "load_data"),
     "theme_map": (".plots", "theme_map"),
+    "theme_socviz": (".plots", "theme_socviz"),
+    "theme_socviz_map": (".plots", "theme_socviz_map"),
+    "theme_socviz_semi": (".plots", "theme_socviz_semi"),
 }
 
 
