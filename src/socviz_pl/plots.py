@@ -46,7 +46,7 @@ def theme_socviz(
 
 def theme_socviz_map(
     base_size: int = 12,
-    base_family: str = "Helvetica Neue",
+    base_family: str | None = None,
     title_family: str | None = None,
 ):
     """Return a quiet plotnine map theme matching the Socviz book style."""
@@ -64,8 +64,6 @@ def theme_socviz_map(
             axis_text=p9.element_blank(),
             axis_ticks=p9.element_blank(),
             axis_title=p9.element_blank(),
-            axis_text_x=p9.element_blank(),
-            axis_text_y=p9.element_blank(),
             panel_background=p9.element_blank(),
             panel_border=p9.element_blank(),
             panel_grid=p9.element_blank(),
@@ -83,7 +81,7 @@ def theme_socviz_map(
 
 def theme_socviz_semi(
     base_size: int = 12,
-    base_family: str = "Helvetica Neue",
+    base_family: str | None = None,
     title_family: str | None = None,
 ):
     """Alias for the book theme's SemiCondensed-style implementation."""
