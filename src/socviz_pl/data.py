@@ -7,6 +7,17 @@ import polars as pl
 
 _DATA_PACKAGE = "socviz_data"
 
+_FACTORS: dict[str, dict[str, list[str]]] = {
+    "gss_sm": {
+        "race": ["White", "Black", "Other"],
+        "sex": ["Male", "Female"],
+        "religion": ["Protestant", "Catholic", "Jewish", "None", "Other"],
+        "bigregion": ["Northeast", "Midwest", "South", "West"],
+        "marital": ["Married", "Never Married", "Divorced", "Widowed", "Separated"],
+        "degree": ["Lt High School", "High School", "Junior College", "Bachelor", "Graduate"],
+    },
+}
+
 
 def available_data() -> list[str]:
     """Return packaged dataset names available via load_data()."""
@@ -41,9 +52,18 @@ def load_data(name: str) -> pl.DataFrame:
 
     with data_file.open("rb") as f:
         try:
-            return pl.read_parquet(f)
+            df = pl.read_parquet(f)
         except pl.exceptions.ComputeError as err:
             if "invalid UTF-8" not in str(err):
                 raise
             f.seek(0)
-            return pl.read_parquet(f, use_pyarrow=True)
+            df = pl.read_parquet(f, use_pyarrow=True)
+
+    if name in _FACTORS:
+        df = df.with_columns(
+            pl.col(col).cast(pl.Enum(levels))
+            for col, levels in _FACTORS[name].items()
+            if col in df.columns
+        )
+
+    return df
