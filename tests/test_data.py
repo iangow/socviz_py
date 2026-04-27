@@ -7,11 +7,18 @@ def test_available_data_includes_book_data():
     names = available_data()
     assert "gss_sm" in names
     assert "county_map" in names
+    assert "states_sf" in names
 
 
 def test_load_data_returns_polars_dataframe():
     df = load_data("gss_sm")
     assert isinstance(df, pl.DataFrame)
+    assert df.height > 0
+
+
+def test_states_sf_columns():
+    df = load_data("states_sf")
+    assert df.columns == ["state", "group_id", "ord", "long", "lat"]
     assert df.height > 0
 
 

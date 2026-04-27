@@ -12,6 +12,17 @@ Rscript data-raw/convert_socviz_rda_to_parquet.R
 
 That script also writes `us_states.parquet` from `ggplot2::map_data("state")`.
 
+## State simple-feature vertices
+
+`states_sf.parquet` is built from the `geoda.ncovr` geometry in `geodatasets`.
+It stores one row per state exterior-ring vertex, with longitude and latitude
+left unprojected so examples can choose a projection when plotting. Regenerate
+it with:
+
+```sh
+uv run python data-raw/build_states_sf.py
+```
+
 ## County map data
 
 The county files are built from Census cartographic county boundaries and ACS 5-year county data. Regenerate them with:
