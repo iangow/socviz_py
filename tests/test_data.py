@@ -18,7 +18,7 @@ def test_load_data_returns_polars_dataframe():
 
 def test_states_sf_columns():
     df = load_data("states_sf")
-    assert df.columns == ["state", "group_id", "ord", "long", "lat"]
+    assert df.columns == ["long", "lat", "order", "hole", "piece", "group", "state"]
     assert df.height > 0
 
 
