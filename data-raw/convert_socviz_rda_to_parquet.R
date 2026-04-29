@@ -14,7 +14,12 @@ data_dir <- file.path("src", "socviz_data", "_data")
 dir.create(data_dir, recursive = TRUE, showWarnings = FALSE)
 
 socviz_data <- c(
+  "asasec",
+  "farsinvolved",
+  "gss_lon",
   "gss_sm",
+  "okboomer",
+  "studebt",
   "organdata",
   "elections_historic",
   "election",
@@ -41,6 +46,7 @@ write_clean_parquet <- function(rda_path, object_name, parquet_path) {
   x <- as.data.frame(lapply(x, function(col) {
     if (inherits(col, "Date")) col
     else if (is.factor(col)) as.character(col)
+    else if (is.integer(col)) as.integer(col)
     else if (is.numeric(col)) as.numeric(col)
     else as.vector(col)
   }), stringsAsFactors = FALSE)
