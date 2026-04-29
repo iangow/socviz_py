@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from importlib.resources import as_file, files
 from pathlib import Path
+from zipfile import ZipFile
 
 import polars as pl
 
@@ -17,6 +18,40 @@ _FACTORS: dict[str, dict[str, list[str]]] = {
         "degree": ["Lt High School", "High School", "Junior College", "Bachelor", "Graduate"],
     },
 }
+
+
+def get_county_boundaries(
+    year: int = 2023,
+    resolution: str = "500k",
+    cache_dir: str | Path = Path.home() / ".cache" / "socviz" / "census",
+) -> Path:
+    """Download Census cartographic county boundaries and return the .shp path.
+
+    Files are cached in *cache_dir* and only downloaded once.
+    """
+    import requests
+
+    cache_dir = Path(cache_dir)
+    zip_path = cache_dir / f"cb_{year}_us_county_{resolution}.zip"
+    shp_dir  = cache_dir / f"cb_{year}_us_county_{resolution}"
+    shp_path = shp_dir   / f"cb_{year}_us_county_{resolution}.shp"
+    url = (
+        f"https://www2.census.gov/geo/tiger/GENZ{year}/shp/"
+        f"cb_{year}_us_county_{resolution}.zip"
+    )
+
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    if not zip_path.exists():
+        response = requests.get(url, timeout=120)
+        response.raise_for_status()
+        zip_path.write_bytes(response.content)
+
+    if not shp_path.exists():
+        shp_dir.mkdir(parents=True, exist_ok=True)
+        with ZipFile(zip_path) as zf:
+            zf.extractall(shp_dir)
+
+    return shp_path
 
 
 def available_data() -> list[str]:

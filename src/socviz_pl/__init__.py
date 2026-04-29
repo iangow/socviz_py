@@ -9,6 +9,7 @@ __version__ = "0.0.1"
 __all__ = [
     "available_data",
     "data_path",
+    "get_county_boundaries",
     "load_data",
     "theme_map",
     "theme_socviz",
@@ -20,6 +21,7 @@ __all__ = [
 _LAZY_IMPORTS = {
     "available_data": (".data", "available_data"),
     "data_path": (".data", "data_path"),
+    "get_county_boundaries": (".data", "get_county_boundaries"),
     "load_data": (".data", "load_data"),
     "theme_map": (".plots", "theme_map"),
     "theme_socviz": (".plots", "theme_socviz"),
