@@ -24,6 +24,7 @@ socviz_data <- c(
   "elections_historic",
   "election",
   "election24",
+  "election24_county_df",
   "opiates",
   "titanic",
   "oecd_sum"
