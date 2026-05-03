@@ -37,3 +37,15 @@ The script writes:
 - `src/socviz_data/_data/county_map.parquet`
 
 `county_data.parquet` preserves `su_gun6` and `pop_dens6` from the existing packaged file when present, because those variables do not come from ACS.
+
+## Climate circles
+
+`meteo_yday.parquet` contains daily average temperature ranges for nine US
+cities over 1991-2020, prepared for climate-circle examples. Regenerate it with:
+
+```sh
+uv run python data-raw/build_meteo_yday.py
+```
+
+The script uses Dominic Royé's climate-circles data ZIP and replaces Denver
+with Boston Logan daily summaries from NOAA NCEI.

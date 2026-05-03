@@ -4,7 +4,11 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "socviz_py"
+<<<<<<< HEAD
 version = "0.0.5"
+=======
+version = "0.0.6"
+>>>>>>> 3a17f44 (Added `meteo_yday` data.)
 description = "Data and helper functions for a Python/Polars companion to Data Visualization"
 readme = "README.md"
 requires-python = ">=3.10"

@@ -8,6 +8,7 @@ def test_available_data_includes_book_data():
     assert "gss_sm" in names
     assert "county_map" in names
     assert "states_sf" in names
+    assert "meteo_yday" in names
 
 
 def test_load_data_returns_polars_dataframe():
@@ -34,6 +35,14 @@ def test_nightingale_shape_and_types():
     assert df.columns == ["month", "period", "diseases", "wounds", "other_causes"]
     assert df["month"].dtype == pl.Date
     assert df["diseases"].dtype == pl.Int64
+
+
+def test_meteo_yday_shape_and_cities():
+    df = load_data("meteo_yday")
+    assert df.height == 9 * 366
+    assert "BOSTON" in df["name"].unique().to_list()
+    assert "DENVER" not in df["name"].unique().to_list()
+    assert df.columns == ["name", "city_order", "yd", "date", "ta", "tmx", "tmin"]
 
 
 def test_unknown_dataset_lists_available_names():

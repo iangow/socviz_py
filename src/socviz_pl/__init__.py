@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from importlib import import_module
 
-__version__ = "0.0.4"
+__version__ = "0.0.6"
 
 __all__ = [
     "available_data",
