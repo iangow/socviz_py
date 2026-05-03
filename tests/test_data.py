@@ -28,6 +28,14 @@ def test_data_path_points_to_packaged_parquet():
     assert path.exists()
 
 
+def test_nightingale_shape_and_types():
+    df = load_data("nightingale")
+    assert df.height == 24
+    assert df.columns == ["month", "period", "diseases", "wounds", "other_causes"]
+    assert df["month"].dtype == pl.Date
+    assert df["diseases"].dtype == pl.Int64
+
+
 def test_unknown_dataset_lists_available_names():
     try:
         load_data("not_a_dataset")
